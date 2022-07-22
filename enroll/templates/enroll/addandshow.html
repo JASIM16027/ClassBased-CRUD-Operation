@@ -1,0 +1,70 @@
+{% extends 'enroll/base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="row">
+
+
+<div class="col-sm-4 ">
+<h4 class=" text-center shape"> Add New Student</h4>
+    
+    <div>    
+    <form action="" method = 'POST' >
+        {% csrf_token %}
+                
+        {{form.as_p}}
+        <input type="submit" class='btn btn-success' value='Add'>
+
+    </form> 
+    </div>
+</div>
+
+<div class="col-sm-7 offset-sm-1">
+<h4 class=" text-center shape"> Show Student Informations </h4>
+
+<div>
+
+    <table class="table table-hover">
+
+    <thead>
+        <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Name</th>
+        <th scope="col">Email</th>
+        
+        <th scope="col">Action</th>
+
+        </tr>
+    </thead>
+    {% if student %}
+
+    <tbody>
+    {% for stu in student %}
+        <tr>
+        <th scope="row">{{stu.id}}</th>
+            <td>{{stu.name}}</td>
+            <td>{{stu.email}}</td>
+        
+            <td>
+            <a href="{% url 'updateshow' stu.id%}" class='btn btn-warning btn-sm' >Edit</a>  
+          
+            <form action="{% url 'deletedata' stu.id %}" method='post' class='d-inline'>
+            {% csrf_token %}
+            <input type="submit" value='Delete' class='btn btn-danger btn-sm'>
+            
+            </form>
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    {% endif %}
+
+    </table>
+
+
+    </div>
+    </div>
+
+</div>
+   
+{% endblock content %}
